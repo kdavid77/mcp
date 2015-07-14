@@ -8,19 +8,19 @@ default: &default
   adapter: mysql2
   encoding: utf8
   database: houston
-  username: root
-  password:
-  host: 127.0.0.1
+  username: <%= ENV["AWS_USERNAME"] %>
+  password: <%= ENV["AWS_PASSWORD"] %>
+  host: kdavid.ctyfgo32p9he.eu-central-1.rds.amazonaws.com
   port: 3306
 
 development:
   <<: *default
   adapter: mysql2
   encoding: utf8
-  database: houston
-  username: root
-  password:
-  host: 127.0.0.1
+  database: houston_devel
+  username: <%= ENV["AWS_USERNAME"] %>
+  password: <%= ENV["AWS_PASSWORD"] %>
+  host:  kdavid.ctyfgo32p9he.eu-central-1.rds.amazonaws.com
   port: 3306
 
 # Warning: The database defined as "test" will be erased and
@@ -31,9 +31,9 @@ test:
   adapter: mysql2
   encoding: utf8
   database: houston_test
-  username: root
-  password:
-  host: 127.0.0.1
+  username: <%= ENV["AWS_USERNAME"] %>
+  password: <%= ENV["AWS_PASSWORD"] %>
+  host: kdavid.ctyfgo32p9he.eu-central-1.rds.amazonaws.com
   port: 3306
 
 production:

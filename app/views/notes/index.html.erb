@@ -1,0 +1,27 @@
+<%= provide :title, "Notes" %>
+
+<div class="col-md-12">
+    <%=link_to "Create new note", new_note_path, class: "btn btn-primary" %>
+    <% if params[:search_keywords]%>
+      <%=link_to "All notes (search reset)", notes_path, class: "btn" %>
+    <% end %>
+</div>
+
+<div class="col-md-12">
+  <section>
+    <h3> Notes found: (<%= @notes.count %>)</h3>
+    <section>
+      <%= form_tag notes_path, method: "get" do %>
+	<%= text_field_tag :search_keywords, nil, placeholder: "Search notes " + params[:search_keywords].to_s, class: "col-md-9" %>
+	<%= submit_tag "SEARCH NOTES", class: "btn btn-default", class: "col-md-2 btn-default" %>
+      <% end %>
+    </section>
+    <% if @notes.any? %>
+      <ol class="notes">
+	<%= render @notes %>
+      </ol>
+      <%= will_paginate @notes %>
+    <% end %>
+  </div>
+  </section>
+</aside>

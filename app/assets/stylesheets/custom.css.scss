@@ -23,7 +23,7 @@ section{
 }
 
 textarea{
-  resize: vertical;
+  resize: both;
 }
 
 .center{
@@ -117,7 +117,7 @@ footer {
 /* sidebar */
 
 aside{
-  section.user_info{
+  section.user-info{
     margin-top: 20px;
   }
   section{
@@ -156,7 +156,7 @@ aside{
 input, textarea, select, .uneditable-input{
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
+  margin: 15px;
   @include box-sizing;
 }
 
@@ -202,5 +202,64 @@ input{
     overflow: auto;
     padding: 10px 0px;
     border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+/* notes */
+
+.notes{
+  list-style: none;
+  padding: 0;
+  li{
+    padding: 10px 0;
+    border-top:  1px solid #e8e8e8;
+  }
+  .user{
+    margin-top: 10px;
+    padding-top: 0;
+  }
+  .content{
+    display: block;
+    margin-left: 40px;
+    margin-bottom: 5px;
+    img{
+      display: block;
+      padding: 3px, 0;
+    }
+  }
+  .show{
+    border: 1px solid #bbb;
+    width: 100%;
+    margin: 15px;
+    padding: 15px;
+    @include box-sizing;
+  }
+  .timestamp{
+    color: $gray-light;
+    display: block;
+    
+  }
+  .gravatar{
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }  
+}
+
+.cancel{
+  width: 100%;
+  text-align: center;
+}
+aside{
+  textarea{
+    height: 150px;
+    margin-bottom: 5px;
+  }
+}
+
+span.picture{
+  margin-top: 10px;
+  input {
+    border: 0;
   }
 }

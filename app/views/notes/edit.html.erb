@@ -1,0 +1,16 @@
+<% provide :title, "Edit note" %>
+<h1>Update note</h1>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_for @edit_note do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="field">
+	<%= f.text_area :content, rows: 12, maxlength: 10000 %>
+      </div>
+      <%= f.submit "Update", class: "btn btn-primary" %>
+      <div class="cancel">
+	<%= link_to "Cancel, return to note", @edit_note, class: "btn" %>
+      </div>
+    <% end %>
+</div>
+ 
