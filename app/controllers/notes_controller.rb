@@ -31,6 +31,18 @@ class NotesController < ApplicationController
     @edit_note = Note.find_by(id: params[:id])
   end
   
+  def archive
+    @archive_note = Note.find_by(id: params[:id])
+    @archive_note.update_attribute( :archived, 'true')
+    redirect_to notes_path
+  end
+  
+  def activate
+    @archive_note = Note.find_by(id: params[:id])
+    @archive_note.update_attribute( :archived, 'false')
+    redirect_to notes_path
+  end
+    
   def update
     @note = Note.find_by(id: params[:id])
     if @note.update_attributes(note_params)
@@ -51,16 +63,25 @@ class NotesController < ApplicationController
   def index
     if logged_in?
       @user = current_user
-      @notes = @user.notes.where("content LIKE ?", "%"+params[:search_keywords].to_s+"%").paginate(page: params[:page])
-      @new_note = current_user.notes.build
+      session[:show_archived_notes]||='false'
+
+      if params[:show_archived_notes] 
+	session[:show_archived_notes]=params[:show_archived_notes]
+      end
+      
+      @active_notes = @user.notes.where(archived: false).where("content LIKE ?", "%"+params[:search_keywords].to_s+"%").paginate(page: params[:page])
+      if session[:show_archived_notes]=='true'        
+	@archived_notes = @user.notes.where(archived: true).where("content LIKE ?", "%"+params[:search_keywords].to_s+"%").paginate(page: params[:page])
+      end
+      
     else
-      redirect_to root_url
+    redirect_to root_url
     end
   end
   
   private
     def note_params
-      params.require(:note).permit(:content)
+      params.require(:note).permit(:content, :archived)
     end
     
     def correct_user

@@ -2,6 +2,16 @@
 
 <div class="col-md-12">
     <%=link_to "Create new note", new_note_path, class: "btn btn-primary" %>
+    
+    <% show = session[:show_archived_notes] %>
+    <% show ||= 'false' %>
+    
+    <% if show=='true' %>
+      <%= link_to "Hide archived notes", notes_path(show_archived_notes: false, search_keywords: params[:search_keywords]), class: "btn" %>
+    <% else %>
+      <%= link_to "Show archived notes", notes_path(show_archived_notes: true, search_keywords: params[:search_keywords]), class: "btn" %>
+    <% end %>
+    
     <% if params[:search_keywords]%>
       <%=link_to "All notes (search reset)", notes_path, class: "btn" %>
     <% end %>
@@ -9,18 +19,29 @@
 
 <div class="col-md-12">
   <section>
-    <h3> Notes found: (<%= @notes.count %>)</h3>
-    <section>
-      <%= form_tag notes_path, method: "get" do %>
-	<%= text_field_tag :search_keywords, nil, placeholder: "Search notes " + params[:search_keywords].to_s, class: "col-md-9" %>
-	<%= submit_tag "SEARCH NOTES", class: "btn btn-default", class: "col-md-2 btn-default" %>
-      <% end %>
-    </section>
-    <% if @notes.any? %>
+    <%= form_tag notes_path, method: "get" do %>
+      <%= text_field_tag :search_keywords, nil, placeholder: "Search notes " + params[:search_keywords].to_s, class: "col-md-9" %>
+      <%= submit_tag "SEARCH NOTES", class: "btn btn-default", class: "col-md-2 btn-default" %>
+    <% end %>
+  </section>
+  <section>
+    <h3> Active notes found: (<%= @active_notes ? @active_notes.count : 0 %>) </h3>
+    <% if @active_notes %>
+      <%= will_paginate @active_notes %>
       <ol class="notes">
-	<%= render @notes %>
+	<%= render @active_notes %>
       </ol>
-      <%= will_paginate @notes %>
+      <%= will_paginate @active_notes %>
+    <% end %>
+    <% if session[:show_archived_notes]=='true' %>
+      <h3> Archived notes found: (<%= @archived_notes ? @archived_notes.count : 0 %>)</h3>
+      <% if @archived_notes %>
+	<%= will_paginate @archived_notes %>
+	<ol class="notes">
+	  <%= render @archived_notes %>
+	</ol>
+	<%= will_paginate @archived_notes %>
+      <% end %>
     <% end %>
   </div>
   </section>

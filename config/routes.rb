@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit] # az aktivalasokhoz
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :notes
+  get "notes/:id/archive/" => "notes#archive", as: "note_archive"
+  get "notes/:id/activate/" => "notes#activate", as: "note_activate"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
