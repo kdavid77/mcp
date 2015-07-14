@@ -38,4 +38,10 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: houston
+  username: <%= ENV["AWS_USERNAME"] %>
+  password: <%= ENV["AWS_PASSWORD"] %>
+  host:  kdavid.ctyfgo32p9he.eu-central-1.rds.amazonaws.com
+  port: 3306
