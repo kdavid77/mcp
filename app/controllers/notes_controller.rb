@@ -69,11 +69,16 @@ class NotesController < ApplicationController
 	session[:show_archived_notes]=params[:show_archived_notes]
       end
       
-      @active_notes = @user.notes.where(archived: false).where("content LIKE ?", "%"+params[:search_keywords].to_s+"%").paginate(page: params[:page])
-      if session[:show_archived_notes]=='true'        
-	@archived_notes = @user.notes.where(archived: true).where("content LIKE ?", "%"+params[:search_keywords].to_s+"%").paginate(page: params[:page])
+      if params[:search_keywords]
+	session[:search_keywords]=params[:search_keywords]
+      else
+	session.delete(:search_keywords)
       end
       
+      @active_notes = @user.notes.where(archived: false).where("content LIKE ?", "%"+session[:search_keywords].to_s+"%").paginate(page: params[:page])
+      if session[:show_archived_notes]=='true'        
+	@archived_notes = @user.notes.where(archived: true).where("content LIKE ?", "%"+session[:search_keywords].to_s+"%").paginate(page: params[:page])
+      end
     else
     redirect_to root_url
     end

@@ -1,12 +1,10 @@
 <%= provide :title, "Notes" %>
 
 <div class="col-md-12">
+    <!-- create note button -->
     <%=link_to "Create new note", new_note_path, class: "btn btn-primary" %>
-    
-    <% show = session[:show_archived_notes] %>
-    <% show ||= 'false' %>
-    
-    <% if show=='true' %>
+        
+    <% if session[:show_archived_notes] && session[:show_archived_notes]=='true' %>
       <%= link_to "Hide archived notes", notes_path(show_archived_notes: false, search_keywords: params[:search_keywords]), class: "btn" %>
     <% else %>
       <%= link_to "Show archived notes", notes_path(show_archived_notes: true, search_keywords: params[:search_keywords]), class: "btn" %>
@@ -20,7 +18,7 @@
 <div class="col-md-12">
   <section>
     <%= form_tag notes_path, method: "get" do %>
-      <%= text_field_tag :search_keywords, nil, placeholder: "Search notes " + params[:search_keywords].to_s, class: "col-md-9" %>
+      <%= text_field_tag :search_keywords, nil, placeholder: "Search keywords " + params[:search_keywords].to_s, class: "col-md-9" %>
       <%= submit_tag "SEARCH NOTES", class: "btn btn-default", class: "col-md-2 btn-default" %>
     <% end %>
   </section>

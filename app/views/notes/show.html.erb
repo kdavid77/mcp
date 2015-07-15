@@ -1,7 +1,7 @@
 <%= provide(:title, "Note") %>
 
 <div class="col-md-12">
-  <%= link_to "Back to notes", notes_path(show_archived_notes: false, search_keywords: params[:search_keywords]), class: "btn btn-primary" %>
+  <%= link_to "Back to notes", notes_path(show_archived_notes: session[:show_archived_notes], search_keywords: session[:search_keywords]), class: "btn btn-primary" %>
   <% if current_user?(@note.user) %>
     <%= link_to "Edit", edit_note_path(@note), class: "btn" %>
     <%= link_to "Delete", @note, method: :delete, class: "btn", data: {confirm: "Are you sure?"} %>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="col-md-12">
-  <%= link_to "Back to notes", notes_path, class: "btn btn-primary" %>
+   <%= link_to "Back to notes", notes_path(show_archived_notes: session[:show_archived_notes], search_keywords: session[:search_keywords]), class: "btn btn-primary" %>
   <% if current_user?(@note.user) %>
     <%= link_to "Edit", edit_note_path(@note), class: "btn" %>
     <%= link_to "Delete", @note, method: :delete, class: "btn", data: {confirm: "Are you sure?"} %>
