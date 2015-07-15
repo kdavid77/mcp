@@ -1,0 +1,5 @@
+<% if object.archived %>
+  <%= link_to "Activate", note_activate_path(object), class: "btn" %>
+<% else %>
+  <%= link_to "Archive", note_archive_path(object), class: "btn" %>
+<% end %> 

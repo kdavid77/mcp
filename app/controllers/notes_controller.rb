@@ -29,6 +29,9 @@ class NotesController < ApplicationController
   
   def edit
     @edit_note = Note.find_by(id: params[:id])
+    if @edit_note.archived
+      redirect_to notes_path
+    end
   end
   
   def archive

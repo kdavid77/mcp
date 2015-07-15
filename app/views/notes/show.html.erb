@@ -3,8 +3,7 @@
 <div class="col-md-12">
   <%= link_to "Back to notes", notes_path(show_archived_notes: session[:show_archived_notes], search_keywords: session[:search_keywords]), class: "btn btn-primary" %>
   <% if current_user?(@note.user) %>
-    <%= link_to "Edit", edit_note_path(@note), class: "btn" %>
-    <%= link_to "Delete", @note, method: :delete, class: "btn", data: {confirm: "Are you sure?"} %>
+    <%= render 'buttons_show', object: @note %>
   <% end %>
 </div>
 
@@ -19,7 +18,8 @@
 <div class="col-md-12">
    <%= link_to "Back to notes", notes_path(show_archived_notes: session[:show_archived_notes], search_keywords: session[:search_keywords]), class: "btn btn-primary" %>
   <% if current_user?(@note.user) %>
-    <%= link_to "Edit", edit_note_path(@note), class: "btn" %>
+    <%= render 'archive_note', object: @note %>
+    <%= link_to "Edit", edit_note_path(@note), class: "btn" if not @note.archived %>
     <%= link_to "Delete", @note, method: :delete, class: "btn", data: {confirm: "Are you sure?"} %>
   <% end %>
 </div>

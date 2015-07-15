@@ -4,11 +4,7 @@
   <span class="content">
     <%= simple_format note.content[0..250] %>
     <%= link_to "more", note_path(note), class: "btn btn-primary" %>
-    <% if note.archived %>
-      <%= link_to "activate", note_activate_path(note), class: "btn btn-primary" %>
-    <% else %>
-      <%= link_to "archive", note_archive_path(note), class: "btn btn-primary" %>
-    <% end %>
+    <%= render 'buttons_show', object: note %>
   </span>
   <span class="timestamp">Archived: <%= note.archived %> Posted: <%= time_ago_in_words(note.created_at) %> ago</span>
 </li>
