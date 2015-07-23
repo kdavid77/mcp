@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714160525) do
+ActiveRecord::Schema.define(version: 20150723064214) do
 
   create_table "notes", force: :cascade do |t|
     t.text     "content",    limit: 65535
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150714160525) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.boolean  "archived",   limit: 1,     default: false
+    t.string   "title",      limit: 255
   end
 
   add_index "notes", ["user_id", "created_at"], name: "index_notes_on_user_id_and_created_at", using: :btree

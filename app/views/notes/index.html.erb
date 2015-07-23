@@ -25,20 +25,20 @@
   <section>
     <h3> Active notes found: (<%= @active_notes ? @active_notes.count : 0 %>) </h3>
     <% if @active_notes %>
-      <%= will_paginate @active_notes %>
+      <%= will_paginate @active_notes if @active_notes.count>30 %>
       <ol class="notes">
 	<%= render @active_notes %>
       </ol>
-      <%= will_paginate @active_notes %>
+      <%= will_paginate @active_notes if @active_notes.count>30%>
     <% end %>
     <% if session[:show_archived_notes]=='true' %>
       <h3> Archived notes found: (<%= @archived_notes ? @archived_notes.count : 0 %>)</h3>
       <% if @archived_notes %>
-	<%= will_paginate @archived_notes %>
+	<%= will_paginate @archived_notes if @archived_notes.count>30 %>
 	<ol class="notes">
 	  <%= render @archived_notes %>
 	</ol>
-	<%= will_paginate @archived_notes %>
+	<%= will_paginate @archived_notes if @archived_notes.count>30 %>
       <% end %>
     <% end %>
   </div>

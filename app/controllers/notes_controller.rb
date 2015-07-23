@@ -1,29 +1,25 @@
 class NotesController < ApplicationController
-  before_action :logged_in_user, only: [:show, :create, :destroy]
+  before_action :logged_in_user, only: [:show, :create, :edit, :update, :destroy]
   
   def show
     @user = current_user
     @notes = @user.notes.paginate(page: params[:page])
-    @note = Note.find_by(id: params[:id])
+    @note = Note.find_by(id: params[:id])    
+    highlight(@note, session[:search_keywords]) if @note && session[:search_keywords]
   end
   
   def new
-    if logged_in?
-      @user = current_user
-      @new_note = current_user.notes.build
-    else
-      redirect_to root_url
-    end
+    @new_note = Note.new
+    redirect_to root_url if not logged_in?
   end
   
   def create
-    @note = current_user.notes.build(note_params)
-    if @note.save
+    @new_note = current_user.notes.build(note_params)
+    if @new_note.save
       flash[:success]="Note created"
       redirect_to notes_path
     else
-      flash[:danger]="Something went wrong..."
-      redirect_to notes_path
+      render 'new'
     end
   end
   
@@ -47,13 +43,13 @@ class NotesController < ApplicationController
   end
     
   def update
-    @note = Note.find_by(id: params[:id])
-    if @note.update_attributes(note_params)
+    @edit_note = Note.find_by(id: params[:id])
+    if @edit_note.update_attributes(note_params)
       flash[:success]="Note successfully edited."
+      redirect_to @edit_note
     else
-      flash[:danger]="Something went wrong..."
+      render 'edit'
     end
-    redirect_to @note
   end
   
   def destroy
@@ -78,9 +74,29 @@ class NotesController < ApplicationController
 	session.delete(:search_keywords)
       end
       
-      @active_notes = @user.notes.where(archived: false).where("content LIKE ?", "%"+session[:search_keywords].to_s+"%").paginate(page: params[:page])
+      @active_notes = @user.notes.where(archived: false)
+				  .where("content LIKE ? OR title LIKE ?", 
+				         "%"+session[:search_keywords].to_s+"%", 
+				         "%"+session[:search_keywords].to_s+"%")
+				  .paginate(page: params[:page])
       if session[:show_archived_notes]=='true'        
-	@archived_notes = @user.notes.where(archived: true).where("content LIKE ?", "%"+session[:search_keywords].to_s+"%").paginate(page: params[:page])
+	@archived_notes = @user.notes.where(archived: true)
+				      .where("content LIKE ? OR title LIKE ?", 
+				             "%"+session[:search_keywords].to_s+"%", 
+				             "%"+session[:search_keywords].to_s+"%")
+				      .paginate(page: params[:page])
+      end
+      if session[:search_keywords]
+	@active_notes.each do |note|
+	  #note.title = note.title.gsub session[:search_keywords], "<b>" + session[:search_keywords] + "</b>"
+	  #note.content = note.content.gsub(session[:search_keywords], "<b>" + session[:search_keywords] + "</b>")
+	  highlight(note, session[:search_keywords])
+	end if @active_notes
+	@archived_notes.each do |note|
+	  #note.title = note.title.gsub session[:search_keywords], "<b>" + session[:search_keywords] + "</b>"
+	  #note.content = note.content.gsub(session[:search_keywords], "<b>" + session[:search_keywords] + "</b>")
+	  highlight(note, session[:search_keywords])
+	end if @archived_notes
       end
     else
     redirect_to root_url
@@ -88,8 +104,13 @@ class NotesController < ApplicationController
   end
   
   private
+    def highlight(target, part)
+      target.title = target.title.gsub part, '<b>' + part + '</b>'
+      target.content = target.content.gsub part, '<b>' + part + '</b>'
+    end
+  
     def note_params
-      params.require(:note).permit(:content, :archived)
+      params.require(:note).permit(:title, :content, :archived)
     end
     
     def correct_user

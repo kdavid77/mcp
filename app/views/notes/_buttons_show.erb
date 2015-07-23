@@ -1,9 +1,9 @@
 <% if object.archived %>
-  <%= link_to "Activate", note_activate_path(object), class: "btn" %>
+  <%= link_to "Activate", note_activate_path(object), class: "btn btn-xs" %>
 <% else %>
-  <%= link_to "Archive", note_archive_path(object), class: "btn" %>
+  <%= link_to "Archive", note_archive_path(object), class: "btn btn-xs" %>
 <% end %> 
 
-<%= link_to "Edit", edit_note_path(object), class: "btn" if not object.archived %>
+<%= link_to "Edit", edit_note_path(object), class: "btn btn-xs" if not object.archived %>
 
-<%= link_to "Delete", object, method: :delete, class: "btn", data: {confirm: "Are you sure?"} %>
+<%= link_to "Delete", object, method: :delete, class: "btn btn-xs", data: {confirm: "Are you sure?"} %>

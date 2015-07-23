@@ -5,6 +5,9 @@
     <%= form_for @edit_note do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="field">
+	<%= f.text_field :title, maxlength: 255 %>
+      </div>
+      <div class="field">
 	<%= f.text_area :content, rows: 12, maxlength: 10000 %>
       </div>
       <%= f.submit "Update", class: "btn btn-primary" %>

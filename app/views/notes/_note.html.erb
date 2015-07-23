@@ -1,11 +1,17 @@
 <li id="notes-<%= note.id  %>">
-  <%= link_to gravatar_for(note.user, size: 30), note.user %>
-  <span class="user"><%= link_to note.user.name, note.user %></span>
-  <span class="content">
-    <%= simple_format note.content[0..250] %>
-    <%= link_to "more", note_path(note), class: "btn btn-primary" %>
+  <div class="col-md-6">
+    <% if not note.title  %>
+      <%= link_to "No title" , note %>
+    <% else %>
+      <%= link_to simple_format(note.title) , note %>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to "show", note_path(note), class: "btn btn-primary btn-xs" %>
     <%= render 'buttons_show', object: note %>
-  </span>
-  <span class="timestamp">Archived: <%= note.archived %> Posted: <%= time_ago_in_words(note.created_at) %> ago</span>
+  </div>
+  <div class="col-md-3">
+    <div class="timestamp">(posted: <%= time_ago_in_words(note.created_at) %> ago)</div>
+  </div>
 </li>
  

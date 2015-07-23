@@ -55,6 +55,15 @@ h2{
   color: $gray-light;
 }
 
+h4{
+  font-size: 1em;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-weight: normal;
+  color: black;
+}
+
 p{
   font-size: 1.1em;
   line-height: 1.7em;
@@ -81,7 +90,6 @@ p{
 /* footer */
 
 footer {
-  margin-top: 45px; 
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: $gray-light;
@@ -211,8 +219,7 @@ input{
   list-style: none;
   padding: 0;
   li{
-    padding: 10px 0;
-    border-top:  1px solid #e8e8e8;
+    padding: 5px 0;
   }
   .user{
     margin-top: 10px;
@@ -238,7 +245,11 @@ input{
   .timestamp{
     color: $gray-light;
     display: block;
-    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-style: italic;
+    text-align: right;
   }
   .gravatar{
     float: left;
