@@ -1,5 +1,5 @@
 <li id="notes-<%= note.id  %>">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <% if not note.title  %>
       <%= link_to "No title" , note %>
     <% else %>
@@ -10,8 +10,9 @@
     <%= link_to "show", note_path(note), class: "btn btn-primary btn-xs" %>
     <%= render 'buttons_show', object: note %>
   </div>
-  <div class="col-md-3">
-    <div class="timestamp">(posted: <%= time_ago_in_words(note.created_at) %> ago)</div>
+  <div class="col-md-4">
+    <div class="timestamp">(posted: <%= time_ago_in_words(note.created_at) %> ago,
+			    updated: <%= time_ago_in_words(note.updated_at) %>)</div>
   </div>
 </li>
  
