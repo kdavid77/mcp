@@ -1,0 +1,22 @@
+<%= provide :title, "New Contact" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @edit_contact do |f| %> 
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="field">
+	<%= f.text_field :name,  maxlength: 50, placeholder: "Contact name..." %>
+      </div>
+      <div class="field">
+	<%= f.text_field :memo, maxlength: 50, placeholder: "Contact memo..." %>
+      </div>
+      <%= f.submit "Save", class: "btn btn-primary" %>
+    <% end %>
+    <div class="cancel">
+      <%= link_to "Cancel, return to contact", @edit_contact, class: "btn" %>
+    </div>
+  </div>
+
+</div>
+ 
+ 

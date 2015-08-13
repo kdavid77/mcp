@@ -1,0 +1,31 @@
+<%= provide :title, "Show contact" %> 
+
+<div class="contacts">
+  <section>
+    <%= link_to "Back to contacts", contacts_path, class: "btn btn-primary" %>
+    <% if current_user?(@contact.user) %>
+      <%= render 'buttons_show', object: @contact %>
+    <% end %>
+  </section>
+  <h3><%= @contact.name %></h3>
+  <section>
+    <div class="col-md-6"><div class="memo"><%= @contact.memo %></div></div>
+    <div class="col-md-3"><div class="timestamp">(Last updated: <%= time_ago_in_words(@contact.updated_at) %>)</div></div>
+  </section>
+  <section>
+    <h4>E-mail adress(es)</h4>
+  </section>
+  <section>
+    <h4>Phone numbers</h4>
+  </section>
+  <section>
+    <h4>Web</h4>
+  </section>
+  <section>
+    <h4>Social media</h4>
+  </section>
+  <section>
+    <h4>Other</h4>
+  </section>
+</div>
+

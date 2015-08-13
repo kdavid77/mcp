@@ -1,0 +1,24 @@
+<%= provide :title, "Contacts" %>
+
+<h1> Contacts </h1>
+
+<div class="col-md-12">
+    <!-- create contact button -->
+    <%=link_to "Create new contact", new_contact_path, class: "btn btn-primary" %>
+    <section>
+    <%= form_tag contacts_path, method: "get" do %>
+      <%= text_field_tag :search_contacts, nil, placeholder: "Search contacts " + params[:search_keywords].to_s, class: "col-md-9" %>
+      <%= submit_tag "SEARCH CONTACTS", class: "btn btn-default", class: "col-md-2 btn-default" %>
+    <% end %>
+  </section>
+  <section>
+    <h3>Contacts found: <%= @contacts? @contacts.count : 0 %> </h3>
+    <% if @contacts %>
+      <%= will_paginate @contacts if @contacts.count > WillPaginate.per_page %>
+      <ol class="contacts">
+	<%= render @contacts %>
+      </ol>
+      <%= will_paginate @contacts if @contacts.count > WillPaginate.per_page %>
+    <% end %>
+  </section>
+</div>

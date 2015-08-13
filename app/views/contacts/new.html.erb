@@ -1,18 +1,19 @@
-<%= provide :title, "New Note" %>
+<%= provide :title, "New Contact" %>
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for @new_note do |f| %> 
+    <%= form_for @new_contact do |f| %> 
       <%= render 'shared/error_messages', object: f.object %>
       <div class="field">
-	<%= f.text_field :title,  maxlength: 255, placeholder: "Note title..." %>
+	<%= f.text_field :name,  maxlength: 50, placeholder: "Contact name..." %>
       </div>
       <div class="field">
-	<%= f.text_area :content, rows: 8, maxlength: 10000, placeholder: "Compose new note..." %>
+	<%= f.text_field :memo, maxlength: 50, placeholder: "Contact memo..." %>
       </div>
       <%= f.submit "Save", class: "btn btn-primary" %>
     <% end %>
   </div>
 
 </div>
+ 
  

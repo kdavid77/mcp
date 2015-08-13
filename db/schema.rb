@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723064214) do
+ActiveRecord::Schema.define(version: 20150813071918) do
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "memo",       limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.text     "content",    limit: 65535
@@ -42,5 +52,6 @@ ActiveRecord::Schema.define(version: 20150723064214) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "contacts", "users"
   add_foreign_key "notes", "users"
 end

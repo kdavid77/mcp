@@ -90,8 +90,7 @@ p{
 /* footer */
 
 footer {
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
+  padding: 5px;
   color: $gray-light;
   a{
     color: $gray;
@@ -275,4 +274,50 @@ span.picture{
   input {
     border: 0;
   }
+}
+
+.contacts{
+  list-style: none;
+  padding: 0;
+  li{
+    padding: 5px 0;
+  }
+/*  .user{
+    margin-top: 10px;
+    padding-top: 0;
+  }
+  .content{
+    display: block;
+    margin-left: 40px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    img{
+      display: block;
+      padding: 3px, 0;
+    }
+  }
+  .show{
+    width: 100%;
+    margin: 15px;
+    padding: 15px;
+    font-size: 0.8em;
+    @include box-sizing;
+  }*/
+  .memo, .timestamp{
+    color: $gray-light;
+    display: block;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    letter-spacing: -1px;
+    font-style: italic;
+  }
+  .timestamp{
+    text-align: right;
+  }
+  .gravatar{
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }  
 }

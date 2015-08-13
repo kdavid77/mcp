@@ -1,0 +1,13 @@
+<li id="contacts-<%= contact.id  %>">
+  <div class="col-md-4">
+    <%= link_to simple_format(contact.name) , contact %>
+  </div>
+  <div class="col-md-4">
+    <%= contact.memo %>
+  </div>
+  <div class="col-md-4">
+    <div class="timestamp">(Last updated: <%= time_ago_in_words(contact.updated_at) %>)</div>
+  </div>
+</li>
+ 
+ 
